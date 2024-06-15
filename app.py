@@ -1,10 +1,17 @@
 import streamlit as st
 import pickle
 import pandas as pd
-
+import os
 
 
 st.title('Used Car Price Prediction')
+
+
+current_dir = os.path.dirname(__file__)
+model_path = os.path.join(current_dir, 'randomforest.pkl')
+labelencoder_path = os.path.join(current_dir, 'labelencoder.pkl')
+print("Curren td0 sdfdifdk",current_dir)
+
 
 datas=pd.read_csv('ss.csv')
 
@@ -24,10 +31,10 @@ for i in datas.columns:
 
 
 
-with open('randomforest.pkl', 'rb') as f:
+with open(model_path , 'rb') as f:
     rf_reg = pickle.load(f)
 
-with open('labelencoder.pkl','rb') as fi:
+with open(labelencoder_path,'rb') as fi:
     fuel_type,seller_type,transmission = pickle.load(fi)
 
 
