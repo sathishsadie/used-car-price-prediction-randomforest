@@ -1,9 +1,15 @@
 import streamlit as st
-import pickle
 import pandas as pd
-
+import os
+import joblib
 
 st.title('Used Car Price Prediction')
+
+
+current_dir = os.getcwd()
+
+model_path = os.path.join(current_dir, "models/randomforest.pkl")
+labelencoder_path = os.path.join(current_dir, "models/labelencoder.pkl")
 
 
 
@@ -24,13 +30,12 @@ for i in datas.columns:
     lis.append(a)
 
 
-model_path = "models/randomforest.pkl"
-labelencoder_path = "models/labelencoder.pkl"
+
 with open(model_path , 'rb') as f:
-    rf_reg = pickle.load(f)
+    rf_reg = joblib.load(f)
 
 with open(labelencoder_path,'rb') as fi:
-    fuel_type,seller_type,transmission = pickle.load(fi)
+    fuel_type,seller_type,transmission = joblib.load(fi)
 
 
 
