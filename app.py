@@ -1,16 +1,10 @@
 import streamlit as st
 import pickle
 import pandas as pd
-import os
 
 
 st.title('Used Car Price Prediction')
 
-
-current_dir = os.path.dirname(__file__)
-model_path = os.path.join(current_dir, 'randomforest.pkl')
-labelencoder_path = os.path.join(current_dir, 'labelencoder.pkl')
-print("Curren td0 sdfdifdk",current_dir)
 
 
 datas=pd.read_csv('ss.csv')
@@ -30,7 +24,8 @@ for i in datas.columns:
     lis.append(a)
 
 
-
+model_path = "models/randomforest.pkl"
+labelencoder_path = "models/labelencoder.pkl"
 with open(model_path , 'rb') as f:
     rf_reg = pickle.load(f)
 
@@ -55,4 +50,4 @@ if st.button('Predict Price'):
     dff=preprocess(dff)
     prediction = rf_reg.predict(dff)
 
-    st.write(f"Prediction of the Enteered Car Price  is {prediction[0]:.2f}")
+    st.write(f"Prediction of the Enteered Car Price  is {prediction[0]:.2f} Lakhs")
