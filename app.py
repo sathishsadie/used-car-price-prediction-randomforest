@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
 import os
-import sklearn as sk
+import sklearn.ensemble as en
 import joblib
 
 st.title('Used Car Price Prediction')
+
 
 current_dir = os.getcwd()
 
@@ -31,10 +32,9 @@ for i in datas.columns:
 
 
 @st.cache_data
-def load_model(f,fi):
-    global rf_reg,fuel_type,seller_type,transmission
-    rf_reg = joblib.load(f)
-    fuel_type,seller_type,transmission = joblib.load(fi)
+def load_model(f):
+    return joblib.load(f)
+
 
 
 def preprocess(input):
@@ -50,8 +50,9 @@ if st.button('Predict Price'):
     for i in range(len(ss)):
         dic[ss[i]]=[lis[i]]
     dff=pd.DataFrame(dic)
-    load_model(model_path,labelencoder_path)
+    rf_reg = load_model(model_path)
+    fuel_type,seller_type,transmission = load_model(labelencoder_path)
     dff=preprocess(dff)
     prediction = rf_reg.predict(dff)
 
-    st.write(f"Prediction of the Enteered Car Price  is {prediction[0]:.2f} Lakhs")
+    st.write(f"Prediction of the Enteered Car Price  is {prediction[0][0] : .2f} Lakhs")
