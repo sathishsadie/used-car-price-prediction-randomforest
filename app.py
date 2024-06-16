@@ -31,12 +31,14 @@ for i in datas.columns:
     lis.append(a)
 
 
+@st.cache(allow_output_mutation=True)
+def load_model():
+    f=model_path
+    fi = labelencoder_path
+    global rf_reg,fuel_type,seller_type,transmission
+    rf_reg = joblib.load(f)
+    fuel_type,seller_type,transmission = joblib.load(fi)
 
-f=model_path
-rf_reg = joblib.load(f)
-
-fi = labelencoder_path
-fuel_type,seller_type,transmission = joblib.load(fi)
 
 
 def preprocess(input):
@@ -52,6 +54,7 @@ if st.button('Predict Price'):
     for i in range(len(ss)):
         dic[ss[i]]=[lis[i]]
     dff=pd.DataFrame(dic)
+    load_model()
     dff=preprocess(dff)
     prediction = rf_reg.predict(dff)
 
