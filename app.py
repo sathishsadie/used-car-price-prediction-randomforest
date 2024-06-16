@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 import os
+import sklearn as sk
 import joblib
 
 st.title('Used Car Price Prediction')
-
-
 
 current_dir = os.getcwd()
 
