@@ -6,10 +6,11 @@ import joblib
 st.title('Used Car Price Prediction')
 
 
+
 current_dir = os.getcwd()
 
-model_path = os.path.join(current_dir, "models/randomforest.pkl")
-labelencoder_path = os.path.join(current_dir, "models/labelencoder.pkl")
+model_path = os.path.join(current_dir, "models/randomforest.joblib")
+labelencoder_path = os.path.join(current_dir, "models/labelencoder.joblib")
 
 
 
@@ -31,12 +32,11 @@ for i in datas.columns:
 
 
 
-with open(model_path , 'rb') as f:
-    rf_reg = joblib.load(f)
+f=model_path
+rf_reg = joblib.load(f)
 
-with open(labelencoder_path,'rb') as fi:
-    fuel_type,seller_type,transmission = joblib.load(fi)
-
+fi = labelencoder_path
+fuel_type,seller_type,transmission = joblib.load(fi)
 
 
 def preprocess(input):

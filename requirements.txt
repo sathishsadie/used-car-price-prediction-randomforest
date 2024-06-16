@@ -1,6 +1,7 @@
 streamlit
 pandas 
 numpy 
-scikit-learn
+scikit-learn == 1.4.2
 notebook
+joblib == 1.4.0
 
